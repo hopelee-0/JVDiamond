@@ -6,11 +6,11 @@ import os
 
 # Import PL confocal data
 file = '20220505_PLE_high_power_3.kns'
-path = 'C:\\Users\\hopel\\Documents\\Data\\20220505_EZ03\\'+file
+path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220505_EZ03\\'+file
 
 save_name = "20220505_EZ03_PLE_high_power_3"
 save_dir = "20220505_EZ03_PLE_high_power_3_linecuts\\"
-save_path = 'C:\\Users\\hopel\\Documents\\Data\\20220505_EZ03\\'
+save_path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220505_EZ03\\'
 
 confocal_check = 0
 sum_show = 1
@@ -22,11 +22,11 @@ save_bool = 1
 sum_fit = 1
 guess_plot = 1 # shows fit starting parameters
 type = 'gauss' # options of 'gauss' or 'lorentz'
-amp = 30000
-x0 = 380 # all x units uncalibrated until the end
-w = 20
+amp = 1
+x0 = 0 # all x units uncalibrated until the end
+w = 1
 back = 0 #linear background term
-back_2 = 30000 #constant background term
+back_2 = 0 #constant background term
 
 confocal = np.loadtxt(path)
 
@@ -49,8 +49,11 @@ if os.path.exists(save_path+save_dir) == False: # create a folder to hold all th
 
 sum_PLE = np.sum(confocal, axis=1)
 x_list = range(len(sum_PLE))
+x_list = [28/900*(i-380) for i in x_list]
 
-plt.plot(sum_PLE, label="Delete:{}".format(delete_bool))
+sum_PLE = sum_PLE/max(sum_PLE)
+
+plt.plot(x_list, sum_PLE, label="Delete:{}".format(delete_bool))
 plt.legend()
 plt.title("PLE Sum")
 if save_bool == 1:
@@ -86,9 +89,11 @@ if sum_fit == 1:
                                                             p0=[amp, x0, w, back, back_2])
         y_fit = [Lorentzian(i, params[0], params[1], params[2], params[3], params[4]) for i in x_list]
 
-    plt.plot(y_fit, color='r', label="Fit")
-    plt.scatter(x_list, sum_PLE, color='k', marker=".", label="Data")
-    plt.title("PLE Sum, Fit")
+    plt.plot(x_list, y_fit, color='r', label="Gaussian Fit")
+    plt.scatter(x_list, sum_PLE, color='k', marker=".")
+    plt.ylabel("Intensity (Normalized)")
+    plt.xlabel("Frequency Offset (GHz)")
+    plt.title("PLE Averaged")
     plt.legend()
     if save_bool == 1:
         plt.savefig(save_path+save_dir+save_name+"_sum_fit.png", bbox_inches='tight')
