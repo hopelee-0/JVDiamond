@@ -1,22 +1,33 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-file1 = 'PL_20220505_EZ03_002.kns'
-path = "C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220505_EZ03\\"
+file1 = '20220722_J15_60s_550LP_600grating_inhomogeneous.kns'
+# file2 = '20220629_SiV_SM_710nm_excite_confocal_PL_1714_3s_010.kns'
+path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Color Center Characterization\\20220722_EZ01\\20220722_EZ01\\J15_1s\\"
 
-save_title = 'PL_20220505_EZ03_002.png'
-save_path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220516\\'+save_title
+save_title1 = '20220722_J15_60s_550LP_150grating_inhomogeneous.png'
+save_path = 'G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Color Center Characterization\\20220724_EZ01\\'
 
-plot_title = "4.7K PL Spectrum, 532nm Excitation"
+plot_title = "E4 Inhomogeneous Broadening, 60s Integration"
 
-plot_normalize_bool = 1
+plot_normalize_bool = 0
+background_bool = 1
 x_limits_bool = 1
+y_limits_bool = 0
 andor_calibrate = 0
 save_bool = 1
 
-wave, counts = np.loadtxt(path+file1, unpack=True, skiprows=0, delimiter="\t")
-# wave1, counts1 = np.loadtxt(path+file2, unpack=True, skiprows=0, delimiter=",")
+x_min = 608
+x_max = 652
 
+y_min = 0
+y_max = 4000
+
+background_range = [0, 200]
+show_background = 1
+
+wave, counts = np.loadtxt(path+file1, unpack=True, skiprows=0, delimiter="\t")
+# wave1, counts1 = np.loadtxt(path+file2, unpack=True, skiprows=0, delimiter="\t")
 
 if plot_normalize_bool == 1:
     counts = counts/max(counts)
@@ -29,19 +40,29 @@ if andor_calibrate == 1:
 if andor_calibrate == 1:
     wave = calib(wave)
 
-x_min = 618.5
-x_max = 621
+if show_background == 1:
+    plt.plot(wave, counts, marker=".")
+    plt.axvspan(wave[background_range[0]], wave[background_range[1]], color='r')
+    plt.show()
+
+background_counts = np.mean(counts[background_range[0]:background_range[1]])
+if background_bool == 1:
+    counts = counts-background_counts
+    # counts1  = counts1-background_counts
 
 plt.figure(figsize=(8,6))
-plt.plot(wave, counts, marker='.')
+plt.plot(wave, counts, marker='.', markersize=2, label="Confocal Collection")
+# plt.plot(wave1, counts1, marker='.', markersize=2, label="Coupler Collection")
 # plt.plot(wave1, counts1)
 plt.plot()
 plt.title(plot_title)
+# plt.legend()
 plt.ylabel("Intensity (counts)")
 plt.xlabel("Frequency Offset")
 if x_limits_bool == 1:
     plt.xlim(x_min, x_max)
-    # plt.ylim(0.63, 1.01)
+if y_limits_bool == 1:
+    plt.ylim(y_min, y_max)
 if save_bool == 1:
-    plt.savefig(save_path+'.png', bbox="tight")
+    plt.savefig(save_path+save_title1+'.png', bbox="tight")
 plt.show()

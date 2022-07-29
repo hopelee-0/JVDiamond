@@ -3,25 +3,34 @@ import numpy as np
 import scipy.optimize as optimize
 
 # Enter Data
-file = '20220323_SiV_linewidths.csv'
-path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220323\\'+file
+file = '20220629_Saturation_Curve.txt'
+path = 'G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220629_SiV_LN\\'+file
 
-save_title = "EL_5_Disk_PL_5.png"
-save_path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220302\\El5_Disks\\'+save_title
+save_title = "20220629_Saturation_Curve.png"
+save_path = 'G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220629_SiV_LN\\'+save_title
 
-plot_title = "SiV Linewidth, D Transition"
-save_title = "save_title.png"
+plot_title = "SiV Saturation Curve"
+save_title = "20220703_siv_LN_saturation"
 save_bool = 0
 
 # Enter parameter guesses
-p_o = 10
-f_o = 1
+p_o = 10000
+f_o = 10000
 b = 0.001
 
-power, counts1, counts = np.loadtxt(path, unpack=True, skiprows=0, delimiter=",")
+counts = np.loadtxt(path, unpack=True, skiprows=1, delimiter=",")
+power = [1, 5, 10, 15, 20, 25, 30, 35, 40, 50, 60, 70]
+power = [i*0.077 for i in power]
 
 def saturation(power, f_o, p_o, b):
     return(f_o*power/(p_o+power)+b*power)
+
+plt.plot(power, counts, marker="o")
+plt.title(plot_title)
+plt.ylabel("Intensity (Counts)")
+plt.xlabel("Power (mW)")
+plt.savefig(save_path+save_title+'.png', bbox="tight")
+plt.show()
 
 params, params_covariance = optimize.curve_fit(saturation, power, counts, p0=[f_o, p_o, b])
 print("[fo, po, b]", params)
@@ -38,9 +47,9 @@ plt.title(plot_title)
 # plt.plot(power, y_o, label="Fit Guess", marker="o")
 plt.plot(power, counts, label="Data", marker="^")
 # plt.plot(power, background, label="Background Fit", marker="o")
-# plt.plot(power, sat_no_back, label="Fit", marker="o")
-plt.ylabel("Linewidth (nm)")
-plt.xlabel("W")
+plt.plot(power, sat_no_back, label="Fit", marker="o")
+plt.ylabel("Intensity (counts)")
+plt.xlabel("mW")
 # plt.yscale('log')
 # plt.xscale('log')
 plt.legend()
