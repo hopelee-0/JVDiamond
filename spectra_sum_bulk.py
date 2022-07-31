@@ -5,16 +5,16 @@ import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 
 #takes folder of all PL spectra, and only PL
-name = "test"
-folder = "C:\\Users\\hopel\\Documents\\Data\\20220729_EZ01\\J15_PSB\\"
+folder = "C:\\Users\\hopel\\Documents\\Data\\20220729_EZ01\\J15_ZPL\\"
 
-save_name = "J15_PSB_PL"
-save_folder = "J15_PSB\\"
-save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Color Center Characterization\\20220729_EZ01\\20220729_J15_PL\\"+save_folder+save_name
+save_name = "J15_ZPL_PL"
+save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Color Center Characterization\\20220729_EZ01\\20220729_J15_PL\\"+save_name
+
+plot_title = "J15 ZPL PL Summed"
 
 # bools for controllong outputs
-view = 0
-save_bool = 0
+view = 1
+save_bool = 1
 
 # number of spectrum to survey to determine option parameters
 sample = 5
@@ -40,7 +40,9 @@ if background_bool == 1:
     wave, counts = np.loadtxt(folder+os.listdir(folder)[sample], unpack=True, skiprows=0)
     plt.plot(wave, counts)
     plt.axvspan(wave[background_range[0]], wave[background_range[1]], alpha=0.5, color='red')
-    plt.show()
+    if view == 1:
+        plt.show()
+    plt.clf()
 
 if range_view == 1:
     wave, counts = np.loadtxt(folder+os.listdir(folder)[sample], unpack=True, skiprows=0)
@@ -56,23 +58,31 @@ if range_view == 1:
 # start iterating through folder contents, with counter to index figures
 counter = 0
 
-for file in os.listdir(folder):
+# initialize arrays using first spectrum, will sum subsequent spectrum with initial
+sum_wave, sum_counts = wave, counts = np.loadtxt(folder+os.listdir(folder)[0], unpack=True, skiprows=0)
+if background_bool == 1:
+    background = np.mean(counts[background_range[0]::background_range[1]])
+    sum_counts = sum_counts - background
+
+# sum all counts
+for file in os.listdir(folder)[1::]:
     wave, counts = np.loadtxt(folder+file, unpack=True, skiprows=0)
 
     if background_bool == 1:
         background = np.mean(counts[background_range[0]::background_range[1]])
         counts = counts - background
 
-    # optional plotting for visual verification
-    plt.plot(wave, counts)
-    if x_range_bool == 1:
-        plt.xlim([x_min, x_max])
-    if y_range_bool == 1:
-        plt.ylim([y_min, y_max])
-    if save_bool == 1:
-        plt.savefig(save_path+"_"+str(counter)+'.png')
-    if view == 1:
-         plt.show()
-    plt.clf()
-    print(counter)
-    counter += 1
+    sum_counts = [i+j for i,j in zip(sum_counts, counts)]
+
+plt.plot(sum_wave, sum_counts)
+plt.title(plot_title)
+plt.xlabel("Wavelength (nm)")
+plt.ylabel("Counts")
+if x_range_bool == 1:
+    plt.xlim([x_min, x_max])
+if y_range_bool == 1:
+    plt.ylim([y_min, y_max])
+if save_bool == 1:
+    plt.savefig(save_path+'_summed.png')
+if view == 1:
+    plt.show()

@@ -15,6 +15,8 @@ save_bool = 1
 rotate = 0
 delete_bool = 1
 
+##############################################################################################
+
 confocal = np.loadtxt(path)
 
 if os.path.exists(save_path+save_dir) == False: # create a folder to hold all the figures for a PLE scan

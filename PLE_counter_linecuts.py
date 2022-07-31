@@ -12,6 +12,7 @@ save_name = "PLE_30ms_15GHz_scantime10s_619p29498nm_14uWred_100uWgreen_0"
 # save_dir = "EL15_R1D4_r3c3\PLE_30ms_15GHz_scantime10s_619p29498nm_14uWred_100uWgreen_0_cuts_estimate\\"
 save_path = 'G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Attodry\\2022-05-27_EL15\\EL15_R1D4_r3c3\\linecut_folder\\'
 
+##############################################################################################
 
 def pick_scan(peaks, interval_pick):
     scan_start = (peaks[0+interval_pick]+peaks[1+interval_pick])//2

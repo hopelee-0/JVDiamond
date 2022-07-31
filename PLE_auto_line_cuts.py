@@ -5,16 +5,16 @@ import scipy.optimize as optimize
 import os
 
 # Import PL confocal data
-file = '20220505_PLE_high_power_4.kns'
-path = 'C:\\Users\\hopel\\Documents\\Data\\20220505_EZ03\\'+file
+file = 'PLE_30ms_15GHz_scantime10s_619p29498nm_14uWred_100uWgreen_0.kns'
+path = 'G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Attodry\\2022-05-27_EL15\EL15_R1D4_r3c3\\'+file
 
-save_name = "20220505_EZ03_PLE_high_power_4"
-save_dir = "20220505_EZ03_PLE_high_power_4_linecuts\\"
-save_path = 'C:\\Users\\hopel\\Documents\\Data\\20220505_EZ03\\'
+save_name = "PLE_30ms_15GHz_scantime10s_619p29498nm_14uWred_100uWgreen_0"
+save_dir = "PLE_30ms_15GHz_scantime10s_619p29498nm_14uWred_100uWgreen_0\\"
+save_path = 'G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Attodry\\2022-05-27_EL15\EL15_R1D4_r3c3\\'+file
 
 cuts_show = 0
 confocal_check = 1
-save_bool = 1
+save_bool = 0
 rotate = 0
 delete_bool = 1 # removes every other scan due to hysteresis
 
