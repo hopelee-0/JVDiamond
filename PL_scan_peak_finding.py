@@ -2,10 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from skimage.feature import peak_local_max
 
-file = 'J15_ZPL_002'
+file = 'J15_ZPL'
 path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Color Center Characterization\\20220729_EZ01\\"
 
-save_name = "J15_ZPL_002" # no extension since added later
+save_name = "J15_ZPL" # no extension since added later
 save_path = 'G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Color Center Characterization\\20220729_EZ01\\'+save_name
 
 plot_title = "J15 ZPL Scan"
@@ -17,7 +17,7 @@ colorbar_bool = 1
 colorbar_rotate = 1
 
 color_min = 200
-color_max = 30000
+color_max = 40000
 
 # peak finding parameters
 min_distance = 5 #enforces minimum pixel distance between two identified peaks
@@ -79,8 +79,6 @@ coord_y = [y_min+j*y_step for j in peak_y]
 plt.figure(figsize=(10,10))
 plt.imshow(confocal, origin='lower', extent=[x0, x1, y0, y1])
 plt.title(plot_title+" Peak Finding")
-# ax=plt.gca()
-# ax.invert_yaxis()
 if colorbar_bool == 1:
     if colorbar_rotate == 1:
         cbar = plt.colorbar(orientation='horizontal', fraction=0.046, pad=0.04)
@@ -103,10 +101,8 @@ if save_bool == 1:
     f.write("Minimum distance:{}\n".format(min_distance))
     f.write("Threshold factor:{}\n".format(threshold_factor))
     f.close()
-    f = open(save_path+".txt", "w")
-    for i, j in zip(peak_x, peak_y):
-        x_coord = x_min+j*x_step
-        y_coord = y_min+i*y_step
-        f.write("{:.2f},{:.2f}\n".format(x_coord, y_coord))
+    f = open(save_path+"_peak_find.txt", "w")
+    for i, j in zip(coord_x, coord_y):
+        f.write("{:.2f},{:.2f}\n".format(i, j))
 
 print(len(peak_x))
