@@ -2,13 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from skimage.feature import peak_local_max
 
-file = '20220824_LND05_SnV_d14_ZPL_coupler2_010'
-path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220824_LND05_SnV\\"
+file = "20220929_dev1_confocal_collection_coupler_excitation_001"
+path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220929_LND03_SiV\\"
 
-save_name = "20220824_LND05_SnV_d14_ZPL_coupler2_10" # no extension since added later
-save_path = 'G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220824_LND05_SnV\\'+save_name
+save_name = '20220929_dev1_confocal_collection_coupler_excitation_001' # no extension since added later
+save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220929_LND03_SiV\\"+save_name
 
-plot_title = "LND05 SnV D14, ZPL, SM, Coupler 2"
+plot_title = 'Device 1, Confocal Collection with Coupler Excitation'
 
 save_bool = 1
 rotate = 0
@@ -16,11 +16,11 @@ confocal_show = 1
 colorbar_bool = 1
 colorbar_rotate = 1
 
-color_min = 200
-color_max = 50000
+color_min = 5000
+color_max = 250000
 
 # peak finding parameters
-peak_find_bool = 1
+peak_find_bool = 0
 min_distance = 3 #enforces minimum pixel distance between two identified peaks
 threshold_factor = 2 #multiplied with the mean of the confocal to set the threshold
 

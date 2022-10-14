@@ -4,17 +4,18 @@ import scipy.optimize as optimize
 
 # Fitting scripts for g2 dips without any osbserved Rabi oscillations
 
-file = '20210714_El15_R7D7_res_g2_r1p6uW_g1p6uW.dat'
-path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20210714\\'+file
-save_path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20210721\\'
+file = '20220929_dev1_confocal_detection_coupler_excitation.dat'
+path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220929_LND03_SiV\\"+file
+save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220929_LND03_SiV\\"
+
+plot_title = "g2, Confocal Detection and Coupler Excitation"
+save_title = "20220929_dev1_confocal_detection_coupler_excitation_plotted"
+save_bool = 1
+
 scan1 = np.loadtxt(path, unpack=True, skiprows=10)
 
-plot_title = "Resonant g2, 1.6uW Red/ 1.6uW Green"
-save_title = "20210721_res_g2_r1p6uW_g1p6uW"
-save_bool = 0
-
 dat = scan1 # Fitting code works for one data set at a time, save and then move to next
-res = 64 # resolution, in ps
+res = 128 # resolution, in ps
 
 moveing_avg_toggle = 1 # adds moving average to the data to help reduce noise
 pt_avg_num = 3 # numer of points averaged
@@ -25,17 +26,17 @@ aftershock_cutoff_plot = 0
 dip_cutoff_plot = 0
 dip_location_plot = 0
 guess_plot = 1
-arbitrary_x_fit_plot = 0
+arbitrary_x_fit_plot = 1
 final_plot_show = 1
 
 # Data selection
-aftershock_cutoff= 1250
+aftershock_cutoff= 1350
 
-b_cutoff = 500
-t_cutoff = 900
+b_cutoff = 1000
+t_cutoff = 1350
 
 background_range = 110
-dip_location = 205
+dip_location = 179
 
 # Fitting parameter guesses, in units of 1/resolution
 tau_guess = 100
@@ -118,12 +119,13 @@ print(" ")
 print("tau (ps): {:}".format(params[0]*res))
 print("g0: {:}".format(params[1]))
 
-time_list = [res*i for i in x_list] # calibration of x-axis to have meaningful units
+time_list = [res*i/1000 for i in x_list] # calibration of x-axis to have meaningful units
 plt.figure(figsize=(10,4))
 plt.scatter(time_list, dat_dip, label="Data", marker=".", c="C0")
 plt.plot(time_list, y_fit, label="Fit Function", c="C1")
 plt.ylabel("Normalized Relative Counts")
-plt.xlabel("Time Offset (ps)")
+plt.xlabel("Time Offset (ns)")
+plt.ylim(bottom=0)
 plt.legend()
 plt.title(plot_title)
 if save_bool == 1:
@@ -133,6 +135,7 @@ if final_plot_show == 1:
 
 # Write results to text file to save
 if save_bool == 1:
+    print('text written')
     f = open(save_path+save_title+".txt", "w")
     f.write(plot_title+"\n")
     if moveing_avg_toggle == 1:

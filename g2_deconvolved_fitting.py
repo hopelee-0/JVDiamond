@@ -4,15 +4,15 @@ import scipy.optimize as optimize
 
 # Fitting scripts for g2 dips without any osbserved Rabi oscillations
 
-file = '20220323_siv_transfer_717nmExcite_740BP_BS_2_8mW_WG2.dat'
-path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220323\\'+file
-save_path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220323\\'
+file = '20220929_dev1_confocal_detection_coupler_excitation.dat'
+path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220929_LND03_SiV\\"+file
+save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220929_LND03_SiV\\"
+
+plot_title = "g2, Confocal Detection and Coupler Excitation"
+save_title = "20220929_dev1_confocal_detection_coupler_excitation_plotted"
+save_bool = 0
 
 scan1 = np.loadtxt(path, unpack=True, skiprows=10)
-
-plot_title = "SiV Waveguide g(2)"
-save_title = "20220323_siv_waveguide_g2_fit"
-save_bool = 1
 
 dat = scan1 # Fitting code works for one data set at a time, save and then move to next
 res = 128 # resolution, in ps
@@ -26,19 +26,19 @@ aftershock_cutoff_plot = 0
 dip_cutoff_plot = 0
 dip_location_plot = 0
 guess_plot = 1
-arbitrary_x_fit_plot = 0
-final_plot_show = 1
+arbitrary_x_fit_plot = 1
+final_plot_show = 0
 
 # Data selection
-aftershock_cutoff= 1250
+aftershock_cutoff= 1350
 
 # Secondary data selection for 'dip cutoff plot'
-b_cutoff = 1100
-t_cutoff = 1250
+b_cutoff = 1000
+t_cutoff = 1350
 
 # parameters for initial normalization and dip locating
-background_range = 450
-dip_location = 70
+background_range = 100
+dip_location = 178
 
 # Fitting parameter guesses, in units of 1/resolution
 # g2 parameters

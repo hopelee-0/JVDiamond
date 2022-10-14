@@ -3,32 +3,32 @@ import matplotlib.pyplot as plt
 import scipy.optimize as optimize
 
 # load data
-file = '20220321_siv_transfer_717nm_740BP_BS_210uW_1714_1s_sat_curve.knspl'
-path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220322_SiV_WG_on_LN\\'+file
+file = 'PL_monochromator.kns'
+path = 'G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220919_SiV_LND03\\20220919_LND03\\'+file
 
-save_path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220323\\'
+save_path = 'G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220919_SiV_LND03\\20220919_LND03\\'
 
-plot_title = "SiV Line Width 23mW"
-save_title = "SiV_linewidth_23mW"
-save_bool = 0
+plot_title = "Monochromator Bandwidth"
+save_title = "monochromator_pl"
+save_bool = 1
 
 # choosing sections of data for fitting
-a = 1360
-b = 1385
+a = 700
+b = 950
 
 # display regions
-a_display = 1250
-b_display = 1470
+a_display = 650
+b_display = 1000
 
 # parameter guesses
 amp = 500
-x0 = 737.05
+x0 = 673.5
 w = 0.01
-back_2 = 3500
+back_2 = 2000
 
 show_data = 0
 fit_region = 0
-guess_plot = 0
+guess_plot = 1
 show_fit = 1
 
 wave, counts = np.loadtxt(path, unpack=True, skiprows=0, delimiter="\t")
@@ -85,9 +85,9 @@ if save_bool == 1:
     f = open(save_path+save_title+".txt", "w")
     f.write(plot_title+"\n")
     f.write("\n")
-    f.write("Amplitude:{}\n".format(params[0]))
-    f.write("x0:{}\n".format(params[1]))
-    f.write("FWHM:{}\n".format(params[2]))
-    f.write("Background term, linear:{}\n".format(params[3]))
-    f.write("Background term, constant:{}\n".format(params[4]))
+    f.write("Amplitude: {}\n".format(params[0]))
+    f.write("x0: {}\n".format(params[1]))
+    f.write("FWHM: {}\n".format(params[2]))
+    f.write("Background term, linear: {}\n".format(params[3]))
+    # f.write("Background term, constant: {}\n".format(params[4]))
     f.write("\n")

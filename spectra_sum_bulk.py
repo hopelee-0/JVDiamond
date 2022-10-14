@@ -5,12 +5,12 @@ import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 
 #takes folder of all PL spectra, and only PL
-folder = "C:\\Users\\hopel\\Documents\\Data\\20220729_EZ01\\J15_ZPL\\"
+folder = "C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220725_EZ01\\20220725_I15\\"
 
-save_name = "J15_ZPL_PL"
-save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Color Center Characterization\\20220729_EZ01\\20220729_J15_PL\\"+save_name
+save_name = "I15_PL_summed"
+save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Color Center Characterization\\20220724_EZ01\\"+save_name
 
-plot_title = "J15 ZPL PL Summed"
+plot_title = "I15 PL Summed, 550 LP"
 
 # bools for controllong outputs
 view = 1
@@ -21,18 +21,18 @@ sample = 5
 
 # option to subtract background
 background_bool = 1
-background_range = [0, 200] # indices range
+background_range = [100, 200] # indices range
 
 # option to define plotting background
 range_view = 0
 
 x_range_bool = 0
 x_min = 615
-x_max = 625
+x_max = 652
 
 y_range_bool = 0
-y_min = -5
-y_max = 6000
+y_min = -700
+y_max = 2000
 
 ##############################################################################################
 

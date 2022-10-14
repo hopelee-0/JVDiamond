@@ -11,14 +11,14 @@ from scipy.optimize import curve_fit
 
 # Fitting scripts for g2 dips without any osbserved Rabi oscillations
 
-file = 'g2_001.dat'
-path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220505_EZ03\\'+file
-save_path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20220505_EZ03\\'
+file = '20221005_g2_003.dat'
+path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221003_LND03\\g2\\"+file
+save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221003_LND03\\g2\\"
 
 scan1 = np.loadtxt(path, unpack=True, skiprows=10)
 
-plot_title = "EZ03 SnV, ZPL and PSB g2"
-save_title = "20220509_EZ03_g2_001"
+plot_title = "g2, Couplers Deconvolved"
+save_title = "20221005_g2_003_deconvolved_plotted"
 save_bool = 1
 
 dat = scan1 # Fitting code works for one data set at a time, save and then move to next
@@ -33,19 +33,19 @@ aftershock_cutoff_plot = 0
 dip_cutoff_plot = 0
 dip_location_plot = 0
 guess_plot = 0
-arbitrary_x_fit_plot = 1
+arbitrary_x_fit_plot = 0
 final_plot_show = 1
 
 # Data selection
-aftershock_cutoff= 1250
+aftershock_cutoff= 1350
 
 # Secondary data selection for 'dip cutoff plot'
 b_cutoff = 600
-t_cutoff = 1150
+t_cutoff = 1350
 
 # parameters for initial normalization and dip locating
-background_range = 200
-dip_location = 281
+background_range = 100
+dip_location = 382
 
 # Fitting parameter guesses, in units of 1/resolution
 # g2 parameters
@@ -158,10 +158,11 @@ print("g0: {:}".format(params[1]))
 
 time_list = [res*i/1000 for i in x_list]
 plot_time_list = [res*i/1000 for i in plot_x_list] # calibration of x-axis to have meaningful units
-plt.figure(figsize=(10,4))
+plt.rcParams.update({'font.size': 12})
+plt.figure(figsize=(10,4.5))
 plt.scatter(time_list, dat_dip, label="Data", marker=".", c="C0")
 plt.plot(plot_time_list, y_fit_signal, label="Fit Function, Convolved, dip={:.2}".format(min(y_fit_signal)), c="C1")
-# plt.plot(plot_time_list, y_fit_g2, label="Fit Function, g2, dip={:.2}".format(params[1]), c="C2")
+plt.plot(plot_time_list, y_fit_g2, label="Fit Function, g2, dip={:.2}".format(params[1]), c="C2")
 plt.ylabel("Normalized Relative Counts")
 plt.xlabel("Time Offset (ns)")
 plt.ylim(0.0, 1.3)
