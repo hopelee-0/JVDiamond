@@ -11,18 +11,18 @@ from scipy.optimize import curve_fit
 
 # Fitting scripts for g2 dips without any osbserved Rabi oscillations
 
-file = '20221005_g2_003.dat'
-path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221003_LND03\\g2\\"+file
-save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221003_LND03\\g2\\"
+file = 'g2_all.dat'
+path = "G:\\Shared drives\\Diamond team - Vuckovic group\Data\\LN+diamond data\\20221015_LND_with_pol_BS\\"+file
+save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\Data\\LN+diamond data\\20221015_LND_with_pol_BS\\"
 
-scan1 = np.loadtxt(path, unpack=True, skiprows=10)
+scan1, scan2, scan3, scan4, scan5 = np.loadtxt(path, unpack=True, skiprows=10)
 
-plot_title = "g2, Couplers Deconvolved"
-save_title = "20221005_g2_003_deconvolved_plotted"
+plot_title = "g2, Coupler Detection"
+save_title = "g2_coupler_01"
 save_bool = 1
 
 dat = scan1 # Fitting code works for one data set at a time, save and then move to next
-res = 128 # resolution, in ps
+res = 64 # resolution, in ps
 
 moveing_avg_toggle = 1 # adds moving average to the data to help reduce noise
 pt_avg_num = 3 # numer of points averaged
@@ -32,20 +32,20 @@ all_plot = 0
 aftershock_cutoff_plot = 0
 dip_cutoff_plot = 0
 dip_location_plot = 0
-guess_plot = 0
-arbitrary_x_fit_plot = 0
+guess_plot = 1
+arbitrary_x_fit_plot = 1
 final_plot_show = 1
 
 # Data selection
-aftershock_cutoff= 1350
+aftershock_cutoff= 5000
 
 # Secondary data selection for 'dip cutoff plot'
-b_cutoff = 600
-t_cutoff = 1350
+b_cutoff = 1000
+t_cutoff = 3750
 
 # parameters for initial normalization and dip locating
-background_range = 100
-dip_location = 382
+background_range = 300
+dip_location = 1337
 
 # Fitting parameter guesses, in units of 1/resolution
 # g2 parameters
@@ -165,7 +165,7 @@ plt.plot(plot_time_list, y_fit_signal, label="Fit Function, Convolved, dip={:.2}
 plt.plot(plot_time_list, y_fit_g2, label="Fit Function, g2, dip={:.2}".format(params[1]), c="C2")
 plt.ylabel("Normalized Relative Counts")
 plt.xlabel("Time Offset (ns)")
-plt.ylim(0.0, 1.3)
+plt.ylim(0.0, 1.5)
 plt.legend()
 plt.title(plot_title)
 if save_bool == 1:

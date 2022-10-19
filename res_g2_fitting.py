@@ -4,15 +4,15 @@ import scipy.optimize as optimize
 
 # Fitting scripts for g2 dips without any osbserved Rabi oscillations
 
-file = '20220929_dev1_confocal_detection_coupler_excitation.dat'
-path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220929_LND03_SiV\\"+file
-save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220929_LND03_SiV\\"
+file = 'g2_all.dat'
+path = "G:\\Shared drives\\Diamond team - Vuckovic group\Data\\LN+diamond data\\20221015_LND_with_pol_BS\\"+file
+save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\Data\\LN+diamond data\\20221015_LND_with_pol_BS\\"
 
-plot_title = "g2, Confocal Detection and Coupler Excitation"
-save_title = "20220929_dev1_confocal_detection_coupler_excitation_plotted"
+plot_title = "g2, Coupler Detection"
+save_title = "g2_coupler_01"
 save_bool = 1
 
-scan1 = np.loadtxt(path, unpack=True, skiprows=10)
+scan1, scan2, scan3, scan4, scan5 = np.loadtxt(path, unpack=True, skiprows=10)
 
 dat = scan1 # Fitting code works for one data set at a time, save and then move to next
 res = 128 # resolution, in ps

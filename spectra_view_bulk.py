@@ -5,16 +5,15 @@ import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 
 #takes folder of all PL spectra, and only PL
-name = "test"
-folder = "C:\\Users\\hopel\\Documents\\Data\\20220729_EZ01\\J15_PSB\\"
+name = "confocal_PL\\10s\\"
+folder = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221014_LND03\\20221014_LND03_PL\\"+name
 
-save_name = "J15_PSB_PL"
-save_folder = "J15_PSB\\"
-save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\Color Center Characterization\\20220729_EZ01\\20220729_J15_PL\\"+save_folder+save_name
+save_folder = "confocal_PL\\10s_plotted\\"
+save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221014_LND03\\20221014_LND03_PL\\"+save_folder
 
 # bools for controllong outputs
 view = 0
-save_bool = 0
+save_bool = 1
 
 # number of spectrum to survey to determine option parameters
 sample = 5
@@ -57,6 +56,7 @@ if range_view == 1:
 counter = 0
 
 for file in os.listdir(folder):
+    print(str(file))
     wave, counts = np.loadtxt(folder+file, unpack=True, skiprows=0)
 
     if background_bool == 1:
@@ -70,7 +70,7 @@ for file in os.listdir(folder):
     if y_range_bool == 1:
         plt.ylim([y_min, y_max])
     if save_bool == 1:
-        plt.savefig(save_path+"_"+str(counter)+'.png')
+        plt.savefig(save_path+str(file)+'.png')
     if view == 1:
          plt.show()
     plt.clf()
