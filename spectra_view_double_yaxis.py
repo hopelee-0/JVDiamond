@@ -1,21 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-file1 = '20221010_coupler2excite_coupler1collect_SM_58power_5s_600g_001.kns'
+file1 = '20221025_transmissions_5s_150g_001.kns'
 # file2 = '20220629_SiV_SM_710nm_excite_confocal_PL_1714_3s_010.kns'
-path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221010\\20221010_LND03\\"
+path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221025_LND03\\"
 
-save_title1 = '20221010_coupler2excite_coupler1collect_SM_58power_5s_600g_001_MM.png'
-save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221010\\20221010_LND03\\"
+save_title1 = '20221025_transmissions_5s_150g_001.png'
+save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221025_LND03\\"
 
-plot_title = "Transmission Spectrum, Multi-Mode Collection"
+plot_title = "Transmission Spectrum"
 
 plot_normalize_bool = 1
 background_bool = 1
 x_limits_bool = 0
 y_limits_bool = 0
 andor_calibrate = 0
-save_bool = 1
+save_bool = 0
 
 x_min = 608
 x_max = 652
@@ -23,36 +23,29 @@ x_max = 652
 y_min = 0
 y_max = 4000
 
-background_range = [0, 100]
+background_range = [100, 200]
 show_background = 1
+
 
 wave, counts = np.loadtxt(path+file1, unpack=True, skiprows=0, delimiter="\t")
 
-wave_list = [710
-,715
-,720
-,725
-,730
-,735
-,737
-,740
-,745
-,750
-,755
-,760
-]
-transmission_list = [2.009174312
-,3.282758621
-,4.986046512
-,5.46875
-,3.59939302
-,3.041322314
-,3.819121447
-,2.849389417
-,2.237136465
-,1.319587629
-,0.673972603
-,0.436817473
+wave_list = [700,705, 710, 715, 720, 725, 730, 735, 740, 745, 750, 760, 765, 770, 775, 780]
+transmission_list = [0.570588235
+,0.863013699
+,1.058823529
+,1.416666667
+,2.916666667
+,3.857142857
+,3.384615385
+,3.25
+,3.75
+,3.6
+,1.85915493
+,0.534883721
+,0.367857143
+,0.476635514
+,0.391093117
+,0.37037037
 ]
 
 if plot_normalize_bool == 1:
