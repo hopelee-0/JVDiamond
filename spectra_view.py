@@ -1,9 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-file1 = '20220926_dev1_1714g_10s_confocal_polarizer.kns'
-file2 = '20220926_dev1_1714g_10s_coupler_polarizer.kns'
-path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220926_LND03_SiV\\20220926_dev1_PL_study\\"
+file1 = '20221214_integrated1.kns'
+file2 = '20221214_integrated1_coupler.kns'
+path = "G:/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221214/"
 
 save_title1 = '20220926_dev1_1714g_10s_comparison_polarizer.png'
 save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20220926_LND03_SiV\\20220926_dev1_PL_study\\"
@@ -12,10 +12,10 @@ plot_title = "Photoluminescence Spectra, 710nm Excitation"
 
 plot_normalize_bool = 0
 background_bool = 1
-x_limits_bool = 1
+x_limits_bool = 0
 y_limits_bool = 0
 andor_calibrate = 0
-save_bool = 1
+save_bool = 0
 
 x_min = 735.5
 x_max = 738.5

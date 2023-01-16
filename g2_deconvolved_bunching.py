@@ -5,17 +5,18 @@ import numpy as np
 import scipy.integrate as integrate
 import scipy.special as special
 from scipy.interpolate import UnivariateSpline
+import scipy.signal as signal
 
 from scipy import optimize
 from scipy.optimize import curve_fit
 
 # Fitting scripts for g2 dips without any osbserved Rabi oscillations
 
-file = 'g2_all.dat'
-path = "G:\\Shared drives\\Diamond team - Vuckovic group\Data\\LN+diamond data\\20221015_LND_with_pol_BS\\"+file
-save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\Data\\LN+diamond data\\20221015_LND_with_pol_BS\\"
+file = '20221104_8p35mW_2000sint_couplers_PL00.sint.dat'
+path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221104_LND03\\g2\\"+file
+save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221104_LND03\\g2\\processed\\"
 
-scan1, scan2, scan3, scan4, scan5 = np.loadtxt(path, unpack=True, skiprows=10)
+scan1 = np.loadtxt(path, unpack=True, skiprows=10)
 
 plot_title = "g2, Coupler Detection"
 save_title = "g2_coupler_01"
@@ -41,16 +42,16 @@ aftershock_cutoff= 5000
 
 # Secondary data selection for 'dip cutoff plot'
 b_cutoff = 1000
-t_cutoff = 3750
+t_cutoff = 4000
 
 # parameters for initial normalization and dip locating
 background_range = 300
-dip_location = 1337
+dip_location = 1515
 
 # Fitting parameter guesses, in units of 1/resolution
 # g2 parameters
 tau0_guess = 10
-tau1_guess = 5000
+tau1_guess = 500
 g20_guess = 0.2
 a_guess = 1.3
 
@@ -106,6 +107,7 @@ if aftershock_cutoff_plot == 1:
 
 # From selected data, now more carefully select around the actual dip
 dat_dip = dat[b_cutoff: t_cutoff]
+dat_dip = signal.savgol_filter(dat_dip, 51, 2)
 
 if dip_cutoff_plot == 1:
     plt.figure(figsize=(10,4))

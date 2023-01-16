@@ -1,14 +1,14 @@
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from skimage.feature import peak_local_max
 
-file = "20221014_confocal_collection_coupler1_excite_001"
-path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221014_LND03\\"
+file = "20221102_confocal_PL_5p5mW_001"
+path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221102_LND03/"
 
-save_name = '20221014_confocal_collection_coupler1_excite_001' # no extension since added later
-save_path = "G:\\Shared drives\\Diamond team - Vuckovic group\\Data\\LN+diamond data\\20221014_LND03\\"+save_name
+save_name = '20221102_confocal_PL_5p5mW_001_no_label' # no extension since added later
+save_path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221102_LND03/"+save_name
 
-plot_title = 'Device 1, Confocoal Collection, Coupler Excitation'
+plot_title = ''
 
 save_bool = 1
 rotate = 0
@@ -17,10 +17,10 @@ colorbar_bool = 1
 colorbar_rotate = 1
 
 color_min = 100
-color_max = 100000
+color_max = 150000
 
 # peak finding parameters
-peak_find_bool = 1
+peak_find_bool = 0
 min_distance = 5 #enforces minimum pixel distance between two identified peaks
 threshold_factor = 1.5 #multiplied with the mean of the confocal to set the threshold
 
@@ -61,19 +61,22 @@ if rotate == 1:
 if confocal_show == 1:
     plt.figure(figsize = (10,10))
     plt.imshow(confocal, origin='lower', extent=[x0, x1, y0, y1])
+    plt.yticks([])
+    plt.xticks([])
     plt.title(plot_title)
     if colorbar_bool == 1:
         if colorbar_rotate == 1:
-            cbar = plt.colorbar(orientation='horizontal', fraction=0.046, pad=0.04)
+            cbar = plt.colorbar(location ='bottom', aspect = 70, pad=0.01)
             cbar.formatter.set_powerlimits((0, 0))
-            cbar.ax.yaxis.set_offset_position('left')
+            # cbar.ax.yaxis.set_offset_position('right')
+            cbar.set_ticklabels(['0', '1.5e5'])
         else:
-            cbar = plt.colorbar(fraction=0.046, pad=0.04)
+            cbar = plt.colorbar(fraction=0.046, pad=0.04, shrink=0.5)
             cbar.formatter.set_powerlimits((0, 0))
             cbar.ax.yaxis.set_offset_position('left')
         plt.clim(color_min, color_max)
     if save_bool == 1:
-        plt.savefig(save_path+'_confocal.png', bbox_inches='tight')
+        plt.savefig(save_path+'_confocal.png', bbox_inches='tight', transparent=True)
     plt.show()
 
 # #applying the detection and plotting results
@@ -90,11 +93,11 @@ if peak_find_bool == 1:
     # ax.invert_yaxis()
     if colorbar_bool == 1:
         if colorbar_rotate == 1:
-            cbar = plt.colorbar(orientation='horizontal', fraction=0.046, pad=0.04)
+            cbar = plt.colorbar(orientation='horizontal', fraction=0.046, pad=0.04, shrink=0.5)
             cbar.formatter.set_powerlimits((0, 0))
             cbar.ax.yaxis.set_offset_position('left')
         else:
-            cbar = plt.colorbar(fraction=0.046, pad=0.04)
+            cbar = plt.colorbar(fraction=0.046, pad=0.04, shrink=0.5)
             cbar.formatter.set_powerlimits((0, 0))
             cbar.ax.yaxis.set_offset_position('left')
         plt.clim(color_min, color_max)
@@ -117,7 +120,6 @@ if peak_find_bool == 1:
         plt.scatter(coord_x, coord_y, marker='.', c='r')
         if save_bool == 1:
             plt.savefig(save_path+'_peak_find.png', bbox_inches='tight')
-        plt.show()
         plt.show()
 
     # produce data file with all coordinates, need to convert from pixel location --> need a way to automatically grab this info
