@@ -3,10 +3,10 @@ import numpy as np
 import pandas as pd
 import os
 
-folder = "bs calibrations/"
-path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20230113/"
+folder = "power calib/"
+path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20230116/confocal sat curve/"
 
-save_title = "20230116_bs_calibration_processed"
+save_title = "20230116_confocal_sat_curve_001"
 save_path = path
 
 save_bool = 1
@@ -25,7 +25,7 @@ for file in os.listdir(directory):
     std_power = np.std(power)
 
     if save_bool == 1:
-        f.write("{}, {}, {}/n".format(str(file), mean_power, std_power)) 
+        f.write("{}, {}, {}\n".format(str(file), mean_power, std_power)) 
     
 if save_bool == 1:
     f.close()
