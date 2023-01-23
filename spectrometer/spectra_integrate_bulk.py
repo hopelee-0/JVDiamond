@@ -44,7 +44,7 @@ for file in os.listdir(directory):
 
     background = np.mean(counts[background_range[0]:background_range[1]])
     integration = np.sum(counts[int_range[0]:int_range[1]])
-    signal_count = integration - background*(int_range[1]-int_range[0])/integration
+    signal_count = integration - background*(int_range[1]-int_range[0])
 
     f.write(str(file)+', '+str(signal_count)+'\n')
     # print('written')
