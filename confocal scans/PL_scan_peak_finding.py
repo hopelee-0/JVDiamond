@@ -2,11 +2,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from skimage.feature import peak_local_max
 
-file = "20221102_confocal_PL_5p5mW_001"
-path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221102_LND03/"
+file = "20230210_confocal_001"
+path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20230210/"
 
-save_name = '20221102_confocal_PL_5p5mW_001_no_label' # no extension since added later
-save_path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221102_LND03/"+save_name
+save_name = '202302010_confocal_001' # no extension since added later
+save_path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20230210/"+save_name
 
 plot_title = ''
 
