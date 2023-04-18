@@ -2,6 +2,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+print('test')
+
 file_excite = '20221212_connected1_715_excite_MM.csv'
 file_SM = '20221212_connected1_715_MM.csv'
 file_MM = '20221212_connected1_715_MM.csv'
