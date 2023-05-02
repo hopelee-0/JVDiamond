@@ -4,25 +4,28 @@ import pandas as pd
 
 print('test')
 
-file_excite = '20221212_connected1_715_excite_MM.csv'
-file_SM = '20221212_connected1_715_MM.csv'
-file_MM = '20221212_connected1_715_MM.csv'
-path = 'G:/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221212/Connected 1/'
+name = '20221129_Integrated_737nm'
 
-save_title = "20221212_connected1_715_MM"
+file_excite = f'{name}_exc.csv'
+file_MM = f'{name}_MM.csv'
+file_SM = f'{name}_SM.csv'
+# path = 'G:/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221212/Connected 1/'
+path = '/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221128_LND03/Integrated/'
+
+save_title = f"{name}"
 save_path = path+"processed/" 
 
-shift_1 = -1200
-shift_2 = shift_1
+shift_1 = 2200
+shift_2 = 1100
 
 background_threshold = 1
 
-trim_min = 2000
-trim_max = -600
+trim_min = 100
+trim_max = -2200
 
 scale0 = 1000
-scale1 = 50
-scale2 = 50
+scale1 = 5
+scale2 = 5
 poly_order = 60
 
 threshold = 1000
@@ -39,19 +42,19 @@ save_bool = 1
 # time1, power1 = np.loadtxt(path+file_SM, unpack=True, skiprows=23, delimiter=';')
 # time2, power2 = np.loadtxt(path+file_MM, unpack=True, skiprows=23, delimiter=';')
 
-data0 = pd.read_csv(path+file_excite, skiprows=22, delimiter=';', decimal=',')
-data1 = pd.read_csv(path+file_SM, skiprows=22, delimiter=';', decimal=',')
-data2 = pd.read_csv(path+file_MM, skiprows=22, delimiter=';', decimal=',')
+data0 = pd.read_csv(path+file_excite, skiprows=22, delimiter=';', decimal=',').astype(float)
+data1 = pd.read_csv(path+file_MM, skiprows=22, delimiter=';', decimal=',').astype(float)
+data2 = pd.read_csv(path+file_SM, skiprows=22, delimiter=';', decimal=',').astype(float)
 
-time0 = np.asarray(data0['Time (ms)'])
+time0 = np.asarray(data0['Time (ms)']) 
 power0 = np.asarray(data0['Power (W)'])
 time1 = np.asarray(data1['Time (ms)'])
 power1 = np.asarray(data1['Power (W)'])
 time2 = np.asarray(data2['Time (ms)'])
 power2 = np.asarray(data2['Power (W)'])
 
-time1 -= shift_1
-time2 -= shift_2
+time1 = [i+shift_1 for i in time1]
+time2 = [i+shift_2 for i in time2]
 
 if view_all_bool == 1:
     plt.figure(figsize=(10,4))
@@ -95,13 +98,13 @@ if trim_data_bool == 1:
         plt.legend()
         plt.show()
 
-    time0 = time0[trim_min:trim_max]
-    time1 = time1[trim_min:trim_max]
-    time2 = time2[trim_min:trim_max]
+    time0 = np.asarray(time0[trim_min:trim_max])
+    time1 = np.asarray(time1[trim_min:trim_max])
+    time2 = np.asarray(time2[trim_min:trim_max])
 
-    power0 = power0[trim_min:trim_max]
-    power1 = power1[trim_min:trim_max]
-    power2 = power2[trim_min:trim_max]
+    power0 = np.asarray(power0[trim_min:trim_max])
+    power1 = np.asarray(power1[trim_min:trim_max])
+    power2 = np.asarray(power2[trim_min:trim_max])
 
 # find steps to slice data for polynomial fits
 excite_grad = np.gradient(power0)
