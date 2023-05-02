@@ -4,28 +4,28 @@ import pandas as pd
 
 print('test')
 
-name = '20221129_Integrated_737nm'
+name = '20221213_connected4_737'
 
-file_excite = f'{name}_exc.csv'
-file_MM = f'{name}_MM.csv'
+file_excite = f'{name}_excite.csv'
+file_MM = f'{name}_PM.csv'
 file_SM = f'{name}_SM.csv'
 # path = 'G:/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221212/Connected 1/'
-path = '/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221128_LND03/Integrated/'
+path = '/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221212/Connected 4/'
 
 save_title = f"{name}"
 save_path = path+"processed/" 
 
-shift_1 = 2200
+shift_1 = 2300
 shift_2 = 1100
 
 background_threshold = 1
 
-trim_min = 100
-trim_max = -2200
+trim_min = 2300
+trim_max = -300
 
 scale0 = 1000
-scale1 = 5
-scale2 = 5
+scale1 = 100
+scale2 = scale1
 poly_order = 60
 
 threshold = 1000
@@ -53,6 +53,7 @@ power1 = np.asarray(data1['Power (W)'])
 time2 = np.asarray(data2['Time (ms)'])
 power2 = np.asarray(data2['Power (W)'])
 
+
 time1 = [i+shift_1 for i in time1]
 time2 = [i+shift_2 for i in time2]
 
@@ -65,12 +66,13 @@ if view_all_bool == 1:
     plt.legend()
     plt.show()
 
+power2 = np.nan_to_num(power2)
+
 if background_bool == 1:
     power0_back = np.mean([i for i in power0 if i<=background_threshold*np.mean(power0)])
     power1_back = np.mean([i for i in power1 if i<=background_threshold*np.mean(power1)])
     power2_back = np.mean([i for i in power2 if i<=background_threshold*np.mean(power2)])
 
-    print(sum(power1))
     print(power0_back, power1_back, power2_back)
 
     power0 -= power0_back
