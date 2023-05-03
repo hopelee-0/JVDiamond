@@ -4,27 +4,27 @@ import pandas as pd
 
 print('test')
 
-name = '20221213_connected4_737'
+name = '20221212_connected2_700'
 
-file_excite = f'{name}_excite.csv'
-file_MM = f'{name}_PM.csv'
-file_SM = f'{name}_SM.csv'
-# path = 'G:/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221212/Connected 1/'
-path = '/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221212/Connected 4/'
+file_excite = f'{name}_excite_MM.csv'
+file_MM = f'{name}_MM.csv'
+file_SM = f'{name}_MM.csv'
+path = 'G:/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221212/Connected 2/'
+# path = '/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20221212/Connected 3/'
 
-save_title = f"{name}"
+save_title = f"{name}_MM"
 save_path = path+"processed/" 
 
-shift_1 = 2300
-shift_2 = 1100
+shift_1 = 1500
+shift_2 = shift_1
 
 background_threshold = 1
 
-trim_min = 2300
-trim_max = -300
+trim_min = 10
+trim_max = -1000
 
 scale0 = 1000
-scale1 = 100
+scale1 = 20
 scale2 = scale1
 poly_order = 60
 
