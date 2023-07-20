@@ -2,11 +2,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from skimage.feature import peak_local_max
 
-file = "20230210_confocal_001"
-path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20230210/"
+file = "20230711_EZ04_wvg_001"
+path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/EZ04 Disks/20230711/"
 
-save_name = '202302010_confocal_001' # no extension since added later
-save_path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/LN+diamond data/20230210/"+save_name
+save_name = file # no extension since added later
+save_path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/EZ04 Disks/20230711/"+save_name
 
 plot_title = ''
 
@@ -16,6 +16,7 @@ confocal_show = 1
 colorbar_bool = 1
 colorbar_rotate = 1
 
+manual_color = 0
 color_min = 100
 color_max = 150000
 
@@ -74,7 +75,8 @@ if confocal_show == 1:
             cbar = plt.colorbar(fraction=0.046, pad=0.04, shrink=0.5)
             cbar.formatter.set_powerlimits((0, 0))
             cbar.ax.yaxis.set_offset_position('left')
-        plt.clim(color_min, color_max)
+        if manual_color == 1:
+            plt.clim(color_min, color_max)
     if save_bool == 1:
         plt.savefig(save_path+'_confocal.png', bbox_inches='tight', transparent=True)
     plt.show()

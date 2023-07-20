@@ -3,25 +3,27 @@ import matplotlib.pyplot as plt
 import scipy.optimize as optimize
 
 # load data
-file = '20210813_g58_d4_bck12_b6_fine_2.kns'
-path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20210813_SnV_Cavities\\'+file
-save_path = 'C:\\Users\\makaa\\Documents\\Lab Documents\\Projects\\Diamond\\Data\\20210816\\'
+emitter_num = 57
+file = "20230713_PSB_1714_{}.kns".format(emitter_num)
+path = "/mnt/g/Shared drives/Diamond team - Vuckovic group/Data/EZ04 Disks/20230711/"
+dr = "20230713 PL/".format(emitter_num, emitter_num)
+save_path = path+"20230713 PL/fitted/"
 
-plot_title = "g58, Dose 4, Block 12, Beam 6 Resonance Fit"
-save_title = "20210816_g58_d4_bck12_b6_res_fit_1"
+plot_title = file
+save_title = file+'_fit'
 save_bool = 1
 
 # choosing sections of data for fitting
-a = 700
-b = 775
+a = 10
+b = 500
 
 # display regions
-a_display = 600
-b_display = 600
+a_display = 0
+b_display = 1
 
 # parameter guesses
-amp = 500
-x0 = 701
+amp = 1000
+x0 = 645.7
 w = 0.5
 back = 0.5
 back_2 = 3500
@@ -31,7 +33,7 @@ fit_region = 0
 guess_plot = 1
 show_fit = 1
 
-wave, counts = np.loadtxt(path, unpack=True, skiprows=0)
+wave, counts = np.loadtxt(path+dr+file, skiprows=0, unpack=True, delimiter='\t')
 
 if show_data == 1:
     plt.plot(wave, counts)
@@ -77,7 +79,7 @@ if show_fit == 1:
 
 # Write results to text file to save
 if save_bool == 1:
-    f = open(save_path+save_title+".txt", "w")
+    f = open(save_path+save_title+"_2.txt", "w")
     f.write(plot_title+"\n")
     f.write("\n")
     f.write("Amplitude:{}\n".format(params[0]))
